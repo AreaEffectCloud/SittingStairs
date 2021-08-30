@@ -3,10 +3,7 @@ package com.github.areaeffectcloud.sittingstairs;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -30,6 +27,7 @@ public class SittingStairs implements Listener {
             armorStand.addPassenger(player);
             armorStand.setInvulnerable(true);
             armorStand.setGravity(false);
+
         }
     }
 
@@ -37,8 +35,9 @@ public class SittingStairs implements Listener {
     public void Sitting(PlayerInteractEvent e) {
         Action action = e.getAction();
         Block block = e.getClickedBlock();
+        Player player = e.getPlayer();
 
-        if (action == Action.RIGHT_CLICK_BLOCK) {
+        if (action == Action.RIGHT_CLICK_BLOCK && player.getInventory().getItemInMainHand() == null) {
             //Only Planks
             if (block.getType().equals(Material.ACACIA_STAIRS)) {
                 this.spawnArmorStand(e.getClickedBlock(), e.getPlayer());
