@@ -27,7 +27,8 @@ public class SittingStairs implements Listener {
             armorStand.addPassenger(player);
             armorStand.setInvulnerable(true);
             armorStand.setGravity(false);
-
+            ArmorStand as = (ArmorStand) armorStand;
+            as.setVisible(false);
         }
     }
 
@@ -37,32 +38,34 @@ public class SittingStairs implements Listener {
         Block block = e.getClickedBlock();
         Player player = e.getPlayer();
 
-        if (action == Action.RIGHT_CLICK_BLOCK && player.getInventory().getItemInMainHand() == null) {
-            //Only Planks
-            if (block.getType().equals(Material.ACACIA_STAIRS)) {
-                this.spawnArmorStand(e.getClickedBlock(), e.getPlayer());
+        if (action == Action.RIGHT_CLICK_BLOCK) {
+            if (player.getInventory().getItemInMainHand().getType().isAir()) {
+                //Only Planks
+                if (block.getType().equals(Material.ACACIA_STAIRS)) {
+                    this.spawnArmorStand(block, player);
 
-            } else if (block.getType().equals(Material.BIRCH_STAIRS)) {
-                this.spawnArmorStand(e.getClickedBlock(), e.getPlayer());
+                } else if (block.getType().equals(Material.BIRCH_STAIRS)) {
+                    this.spawnArmorStand(block, player);
 
-            } else if (block.getType().equals(Material.DARK_OAK_STAIRS)) {
-                this.spawnArmorStand(e.getClickedBlock(), e.getPlayer());
+                } else if (block.getType().equals(Material.DARK_OAK_STAIRS)) {
+                    this.spawnArmorStand(block, player);
 
-            } else if (block.getType().equals(Material.JUNGLE_STAIRS)) {
-                this.spawnArmorStand(e.getClickedBlock(), e.getPlayer());
+                } else if (block.getType().equals(Material.JUNGLE_STAIRS)) {
+                    this.spawnArmorStand(block, player);
 
-            } else if (block.getType().equals(Material.OAK_STAIRS)) {
-                this.spawnArmorStand(e.getClickedBlock(), e.getPlayer());
+                } else if (block.getType().equals(Material.OAK_STAIRS)) {
+                    this.spawnArmorStand(block, player);
 
-            } else if (block.getType().equals(Material.SPRUCE_STAIRS)) {
-                this.spawnArmorStand(e.getClickedBlock(), e.getPlayer());
+                } else if (block.getType().equals(Material.SPRUCE_STAIRS)) {
+                    this.spawnArmorStand(block, player);
 
-            } else if (block.getType().equals(Material.CRIMSON_STAIRS)) {
-                this.spawnArmorStand(e.getClickedBlock(), e.getPlayer());
+                } else if (block.getType().equals(Material.CRIMSON_STAIRS)) {
+                    this.spawnArmorStand(block, player);
 
-            } else if (block.getType().equals(Material.WARPED_STAIRS)) {
-                this.spawnArmorStand(e.getClickedBlock(), e.getPlayer());
+                } else if (block.getType().equals(Material.WARPED_STAIRS)) {
+                    this.spawnArmorStand(block, player);
 
+                }
             }
         }
     }
