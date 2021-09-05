@@ -1,8 +1,11 @@
 package com.github.areaeffectcloud.sittingstairs;
 
-import org.bukkit.event.EventHandler;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Main extends JavaPlugin implements Listener {
 
@@ -11,6 +14,9 @@ public final class Main extends JavaPlugin implements Listener {
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new SittingStairs(), this);
         getServer().getPluginManager().registerEvents(this, this);
+
+        List<String> list = new ArrayList<>();
+        getConfig().set("stairs", list);
 
     }
 

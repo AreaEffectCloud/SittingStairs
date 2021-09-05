@@ -1,14 +1,23 @@
 package com.github.areaeffectcloud.sittingstairs;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.Bisected;
+import org.bukkit.block.data.type.Stairs;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.plugin.Plugin;
 import org.spigotmc.event.entity.EntityDismountEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SittingStairs implements Listener {
 
@@ -23,12 +32,13 @@ public class SittingStairs implements Listener {
 
             Location loc = new Location(block.getWorld(), stairsX, stairsY, stairsZ);
 
-            Entity armorStand = loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
-            armorStand.addPassenger(player);
-            armorStand.setInvulnerable(true);
-            armorStand.setGravity(false);
-            ArmorStand as = (ArmorStand) armorStand;
-            as.setVisible(false);
+            Entity armorstand = loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
+            ArmorStand as = (ArmorStand) armorstand;
+            as.setInvisible(true);
+            armorstand.addPassenger(player);
+            armorstand.setGravity(false);
+            armorstand.setInvulnerable(true);
+
         }
     }
 
@@ -40,31 +50,11 @@ public class SittingStairs implements Listener {
 
         if (action == Action.RIGHT_CLICK_BLOCK) {
             if (player.getInventory().getItemInMainHand().getType().isAir()) {
-                //Only Planks
-                if (block.getType().equals(Material.ACACIA_STAIRS)) {
-                    this.spawnArmorStand(block, player);
-
-                } else if (block.getType().equals(Material.BIRCH_STAIRS)) {
-                    this.spawnArmorStand(block, player);
-
-                } else if (block.getType().equals(Material.DARK_OAK_STAIRS)) {
-                    this.spawnArmorStand(block, player);
-
-                } else if (block.getType().equals(Material.JUNGLE_STAIRS)) {
-                    this.spawnArmorStand(block, player);
-
-                } else if (block.getType().equals(Material.OAK_STAIRS)) {
-                    this.spawnArmorStand(block, player);
-
-                } else if (block.getType().equals(Material.SPRUCE_STAIRS)) {
-                    this.spawnArmorStand(block, player);
-
-                } else if (block.getType().equals(Material.CRIMSON_STAIRS)) {
-                    this.spawnArmorStand(block, player);
-
-                } else if (block.getType().equals(Material.WARPED_STAIRS)) {
-                    this.spawnArmorStand(block, player);
-
+                if (block.getType() == Material.ACACIA_STAIRS) {
+                    Stairs stairs = (Stairs) block.getBlockData();
+                    if (stairs.getHalf() == Bisected.Half.BOTTOM) {
+                        this.spawnArmorStand(block, player);
+                    }
                 }
             }
         }
@@ -75,6 +65,8 @@ public class SittingStairs implements Listener {
         if (e.getDismounted().getType() == EntityType.ARMOR_STAND) {
             ArmorStand armorStand = (ArmorStand) e.getDismounted();
             armorStand.remove();
+
+
         }
     }
 }
