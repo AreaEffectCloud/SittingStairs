@@ -1,13 +1,10 @@
 package com.github.areaeffectcloud.sittingstairs;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.type.Stairs;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,8 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class SittingStairs implements Listener {
 
@@ -42,15 +38,23 @@ public class SittingStairs implements Listener {
         }
     }
 
+    private Main main;
+
+    public Main getMain() {
+        return main;
+    }
+
     @EventHandler
     public void Sitting(PlayerInteractEvent e) {
         Action action = e.getAction();
         Block block = e.getClickedBlock();
         Player player = e.getPlayer();
 
+        Material material = Material.getMaterial(String.valueOf(main.getConfig().getItemStack("satairs")));
+
         if (action == Action.RIGHT_CLICK_BLOCK) {
             if (player.getInventory().getItemInMainHand().getType().isAir()) {
-                if (block.getType() == Material.ACACIA_STAIRS) {
+                if (block.getType() == material) {
                     Stairs stairs = (Stairs) block.getBlockData();
                     if (stairs.getHalf() == Bisected.Half.BOTTOM) {
                         this.spawnArmorStand(block, player);
