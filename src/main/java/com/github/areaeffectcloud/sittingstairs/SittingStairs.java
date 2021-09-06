@@ -10,10 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.plugin.Plugin;
 import org.spigotmc.event.entity.EntityDismountEvent;
-
-import java.util.Objects;
 
 public class SittingStairs implements Listener {
 
@@ -38,19 +35,13 @@ public class SittingStairs implements Listener {
         }
     }
 
-    private Main main;
-
-    public Main getMain() {
-        return main;
-    }
-
     @EventHandler
     public void Sitting(PlayerInteractEvent e) {
         Action action = e.getAction();
         Block block = e.getClickedBlock();
         Player player = e.getPlayer();
 
-        Material material = Material.getMaterial(String.valueOf(main.getConfig().getItemStack("satairs")));
+        Material material = Material.matchMaterial(String.valueOf(Main.mainclass.getConfig().getItemStack("stairs")));
 
         if (action == Action.RIGHT_CLICK_BLOCK) {
             if (player.getInventory().getItemInMainHand().getType().isAir()) {
