@@ -20,7 +20,7 @@ public class SittingStairs implements Listener {
             Location blockLocation = block.getLocation();
 
             double stairsX = blockLocation.getBlockX() + 0.5;
-            double stairsY = blockLocation.getBlockY() - 1.2;
+            double stairsY = blockLocation.getBlockY() - 1.0;
             double stairsZ = blockLocation.getBlockZ() + 0.5;
 
             Location loc = new Location(block.getWorld(), stairsX, stairsY, stairsZ);
@@ -41,11 +41,11 @@ public class SittingStairs implements Listener {
         Block block = e.getClickedBlock();
         Player player = e.getPlayer();
 
-        Material material = Material.matchMaterial(String.valueOf(Main.mainclass.getConfig().getItemStack("stairs")));
-
         if (action == Action.RIGHT_CLICK_BLOCK) {
             if (player.getInventory().getItemInMainHand().getType().isAir()) {
-                if (block.getType() == material) {
+                //Not doing
+                if (block.getType() == Material.matchMaterial(Main.mainclass.getConfig().getString("stairs"))) {
+
                     Stairs stairs = (Stairs) block.getBlockData();
                     if (stairs.getHalf() == Bisected.Half.BOTTOM) {
                         this.spawnArmorStand(block, player);

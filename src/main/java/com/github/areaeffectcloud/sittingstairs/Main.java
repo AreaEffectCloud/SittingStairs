@@ -4,42 +4,33 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 
 public final class Main extends JavaPlugin {
 
     public static Main mainclass;
     public static JavaPlugin plugin;
 
-    public static JavaPlugin getPlugin() {
-        return plugin;
-    }
-
     @Override
     public void onEnable() {
-        // Plugin startup logic
         getServer().getPluginManager().registerEvents(new SittingStairs(), this);
-
         mainclass = this;
-        saveDefaultConfig();
-        String ymlFilePath = getDataFolder() + File.separator + "config.yml";
 
-        try (Reader reader = new InputStreamReader(new FileInputStream(ymlFilePath))) {
+        plugin = this;
+        File stairsYml = new File(plugin.getDataFolder() + "/stairs.yml");
+        FileConfiguration stairsConfig = YamlConfiguration.loadConfiguration(stairsYml);
+        saveStairsYml(stairsConfig, stairsYml);
+    }
 
-            FileConfiguration yml = new YamlConfiguration();
-            yml.load(reader);
-
+    public void saveStairsYml(FileConfiguration ymlConfig, File ymlFile) {
+        try {
+            ymlConfig.save(ymlFile);
         } catch (Exception e) {
-            getLogger().warning(String.valueOf(e));
+            e.printStackTrace();
         }
-
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
 }
