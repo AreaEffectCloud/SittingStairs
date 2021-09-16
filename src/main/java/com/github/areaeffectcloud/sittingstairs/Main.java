@@ -15,19 +15,18 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new SittingStairs(), this);
         mainclass = this;
-
         plugin = this;
+
+        saveResource("stairs.yml", false);
         File stairsYml = new File(plugin.getDataFolder() + "/stairs.yml");
         FileConfiguration stairsConfig = YamlConfiguration.loadConfiguration(stairsYml);
-        saveStairsYml(stairsConfig, stairsYml);
-    }
 
-    public void saveStairsYml(FileConfiguration ymlConfig, File ymlFile) {
-        try {
-            ymlConfig.save(ymlFile);
+        try  {
+            stairsConfig.save(stairsYml);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @Override

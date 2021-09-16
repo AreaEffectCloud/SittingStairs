@@ -1,5 +1,6 @@
 package com.github.areaeffectcloud.sittingstairs;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -10,6 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+
+import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
 public class SittingStairs implements Listener {
@@ -43,12 +46,18 @@ public class SittingStairs implements Listener {
 
         if (action == Action.RIGHT_CLICK_BLOCK) {
             if (player.getInventory().getItemInMainHand().getType().isAir()) {
-                //Not doing
-                if (block.getType() == Material.matchMaterial(Main.mainclass.getConfig().getString("stairs"))) {
+                //Not Doing
+                ItemStack item = new ItemStack(Main.mainclass.getConfig().getItemStack("stairs."));
 
-                    Stairs stairs = (Stairs) block.getBlockData();
-                    if (stairs.getHalf() == Bisected.Half.BOTTOM) {
-                        this.spawnArmorStand(block, player);
+                player.sendMessage(ChatColor.LIGHT_PURPLE + "Fase 2nd");
+
+                    if (block.getType() == Material.matchMaterial(String.valueOf(item))) {
+
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Fase 3rd");
+
+                        Stairs stairs = (Stairs) block.getBlockData();
+                        if (stairs.getHalf() == Bisected.Half.BOTTOM) {
+                            this.spawnArmorStand(block, player);
                     }
                 }
             }
