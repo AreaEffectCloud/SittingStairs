@@ -15,6 +15,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
+import java.util.List;
+
 public class SittingStairs implements Listener {
 
     public void spawnArmorStand(Block block, Player player) {
@@ -46,20 +48,22 @@ public class SittingStairs implements Listener {
 
         if (action == Action.RIGHT_CLICK_BLOCK) {
             if (player.getInventory().getItemInMainHand().getType().isAir()) {
-                //Not Doing
-                ItemStack item = new ItemStack(Main.mainclass.getConfig().getItemStack("stairs."));
-
-                player.sendMessage(ChatColor.LIGHT_PURPLE + "Fase 2nd");
-
-                    if (block.getType() == Material.matchMaterial(String.valueOf(item))) {
-
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Fase 3rd");
-
+                //not doingggg
+                ItemStack item = new ItemStack(Material.getMaterial("stairs"));
+                if (Main.mainclass.getConfig().getString("stairs") == null) {
+                    player.sendMessage(ChatColor.AQUA + Main.mainclass.getConfig().getString("stairs"));
+                }
+                Main.mainclass.getConfig().getConfigurationSection("stairs").getKeys(false).forEach(key -> {
+                    player.sendMessage(ChatColor.GOLD + key);
+                    player.sendMessage(ChatColor.GOLD + "Fase 1st");
+                    if (key.equalsIgnoreCase(block.getType().toString())) {
+                        player.sendMessage(ChatColor.GOLD + "Fase 2nd");
                         Stairs stairs = (Stairs) block.getBlockData();
                         if (stairs.getHalf() == Bisected.Half.BOTTOM) {
                             this.spawnArmorStand(block, player);
+                        }
                     }
-                }
+                });
             }
         }
     }

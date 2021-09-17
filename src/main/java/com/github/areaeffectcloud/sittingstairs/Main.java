@@ -1,5 +1,6 @@
 package com.github.areaeffectcloud.sittingstairs;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,9 +28,11 @@ public final class Main extends JavaPlugin {
             e.printStackTrace();
         }
 
+        Bukkit.getLogger().warning("DEBUG <stairs.yml> : " + this.getConfig().getString("stairs"));
     }
 
     @Override
     public void onDisable() {
+        //shutdown this plugin
     }
 }
