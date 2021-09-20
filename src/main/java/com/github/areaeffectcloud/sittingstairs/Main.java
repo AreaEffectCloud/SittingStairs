@@ -1,6 +1,5 @@
 package com.github.areaeffectcloud.sittingstairs;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +18,7 @@ public final class Main extends JavaPlugin {
         plugin = this;
 
         saveResource("stairs.yml", false);
-        File stairsYml = new File(plugin.getDataFolder() + "/stairs.yml");
+        File stairsYml = new File(plugin.getDataFolder() + File.separator + "stairs.yml");
         FileConfiguration stairsConfig = YamlConfiguration.loadConfiguration(stairsYml);
 
         try  {
@@ -27,8 +26,6 @@ public final class Main extends JavaPlugin {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        Bukkit.getLogger().warning("DEBUG <stairs.yml> : " + this.getConfig().getString("stairs"));
     }
 
     @Override
