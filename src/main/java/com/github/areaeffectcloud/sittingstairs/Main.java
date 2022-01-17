@@ -29,7 +29,5 @@ public final class Main extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
-        //shutdown this plugin
-    }
+    public void onDisable() {}
 }

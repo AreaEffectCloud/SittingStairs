@@ -1,6 +1,5 @@
 package com.github.areaeffectcloud.sittingstairs;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,6 +19,7 @@ import org.spigotmc.event.entity.EntityDismountEvent;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import static org.bukkit.entity.EntityType.ARMOR_STAND;
 
@@ -37,7 +37,7 @@ public class SittingStairs implements Listener {
             Location loc = new Location(block.getWorld(), stairsX, stairsY, stairsZ);
             loc.setYaw((float) yaw);
 
-            Entity armorstand = loc.getWorld().spawnEntity(loc, ARMOR_STAND);
+            Entity armorstand = Objects.requireNonNull(loc.getWorld()).spawnEntity(loc, ARMOR_STAND);
             ArmorStand as = (ArmorStand) armorstand;
             as.setInvisible(true);
             armorstand.addPassenger(player);
@@ -59,7 +59,7 @@ public class SittingStairs implements Listener {
         if (action == Action.RIGHT_CLICK_BLOCK) {
             if (player.getInventory().getItemInMainHand().getType().isAir()) {
                 for (String key : list) {
-                    if (block.getType() == Material.matchMaterial(key)) {
+                    if (Objects.requireNonNull(block).getType() == Material.matchMaterial(key)) {
                         Stairs stairs = (Stairs) block.getBlockData();
                         if (stairs.getHalf() == Bisected.Half.BOTTOM) {
                             Collection<Entity> armorstand = block.getWorld().getNearbyEntities(block.getLocation(), 0.5, 1, 0.5, (entity) -> entity.getType() == ARMOR_STAND);
@@ -90,6 +90,10 @@ public class SittingStairs implements Listener {
         if (e.getDismounted().getType() == ARMOR_STAND) {
             ArmorStand armorStand = (ArmorStand) e.getDismounted();
             armorStand.remove();
+
+            Player player = (Player) e.getEntity();
+            Location loc = player.getLocation();
+            player.teleport(loc);
         }
     }
 }
