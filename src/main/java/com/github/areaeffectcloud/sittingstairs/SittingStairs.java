@@ -1,5 +1,6 @@
 package com.github.areaeffectcloud.sittingstairs;
 
+import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,6 +17,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import org.spigotmc.event.entity.EntityDismountEvent;
 
+import java.awt.*;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
@@ -57,19 +59,19 @@ public class SittingStairs implements Listener {
         List<String> list = stairsConfig.getStringList("stairs");
 
         if (action == Action.RIGHT_CLICK_BLOCK) {
-            if (player.getInventory().getItemInMainHand().getType().isAir()) {
-                for (String key : list) {
-                    if (Objects.requireNonNull(block).getType() == Material.matchMaterial(key)) {
+            for (String key : list) {
+                if (Objects.requireNonNull(block).getType() == Material.matchMaterial(key)) {
+                    if (player.getInventory().getItemInMainHand().getType().isAir()) {
                         Stairs stairs = (Stairs) block.getBlockData();
                         if (stairs.getHalf() == Bisected.Half.BOTTOM) {
                             Collection<Entity> armorstand = block.getWorld().getNearbyEntities(block.getLocation(), 0.5, 1, 0.5, (entity) -> entity.getType() == ARMOR_STAND);
-                            if (armorstand.isEmpty()){
+                            if (armorstand.isEmpty()) {
                                 if (stairs.getFacing() == BlockFace.NORTH) {
                                     double yaw = 0;
                                     this.spawnArmorStand(block, player, yaw);
                                 } else if (stairs.getFacing() == BlockFace.EAST) {
                                     double yaw = 90;
-                                    this.spawnArmorStand(block,player, yaw);
+                                    this.spawnArmorStand(block, player, yaw);
                                 } else if (stairs.getFacing() == BlockFace.SOUTH) {
                                     double yaw = 180;
                                     this.spawnArmorStand(block, player, yaw);
@@ -79,6 +81,8 @@ public class SittingStairs implements Listener {
                                 }
                             }
                         }
+                    } else {
+                        player.sendMessage(ChatMessageType.ACTION_BAR + "手に何も持っていない状態でのみ座れます。");
                     }
                 }
             }
