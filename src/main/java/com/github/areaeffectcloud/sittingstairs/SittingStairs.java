@@ -17,7 +17,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import org.spigotmc.event.entity.EntityDismountEvent;
 
-import java.awt.*;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
@@ -45,7 +44,6 @@ public class SittingStairs implements Listener {
             armorstand.addPassenger(player);
             armorstand.setGravity(false);
             armorstand.setInvulnerable(true);
-
         }
     }
 
