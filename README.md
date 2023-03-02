@@ -12,4 +12,4 @@ stairs:
   - BRICK_STAIRS
   - COBBLESTONE_STAIRS
 ```
-Note: this coding is for over version 1.17
+Note: this coding is for version over 1.17
