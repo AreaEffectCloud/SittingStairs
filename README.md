@@ -1,5 +1,5 @@
 # SittingStairs:chair:
-### You can sit on the stairs in your own edited [:memo:resources/stairs.yml](https://github.com/AreaEffectCloud/SittingStairs/blob/master/src/main/resources/stairs.yml) file
+### You can sit on the stairs in your edited [:memo:resources/stairs.yml](https://github.com/AreaEffectCloud/SittingStairs/blob/master/src/main/resources/stairs.yml) file when you right clicked on them.
 
 ## How to edit stairs.yml
 ### Example:
@@ -12,3 +12,4 @@ stairs:
   - BRICK_STAIRS
   - COBBLESTONE_STAIRS
 ```
+Note: this coding is for over version 1.17
