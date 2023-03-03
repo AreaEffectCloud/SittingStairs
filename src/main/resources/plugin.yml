@@ -2,3 +2,4 @@ name: SittingStairs
 version: ${project.version}
 main: com.github.areaeffectcloud.sittingstairs.Main
 api-version: 1.17
+author: AreaEffectCloud
